@@ -249,7 +249,7 @@ chart_data = chart_data[chart_data['order_date'].dt.date <= selected_date]
 
 # End-of-day cumulative
 eod = chart_data[chart_data['order_hour'] == 23].groupby(['order_date', 'city'])['cumulative_saving'].last().reset_index()
-eod_pivot = eod.pivot(index='order_date', columns='city', values='cumulative_saving').fillna(method='ffill')
+eod_pivot = eod.pivot(index='order_date', columns='city', values='cumulative_saving').ffill()
 
 st.line_chart(eod_pivot, use_container_width=True)
 
